@@ -70,5 +70,30 @@ namespace WebAPIService.Controllers
             // Return created person
             return Ok(person);
         }
+        [HttpDelete("DeleteMemoryPerson")]
+        [HttpDelete("DeleteMemoryPerson/{id}")]
+        public async Task<ActionResult> DeletePerson(int? id)
+        {
+            await Task.Yield();
+            // if ID was provided instead of id
+            if (id == null && Request.Query.ContainsKey("ID"))
+                id = int.Parse(Request.Query["ID"]);
+
+            if (id == null)
+                return BadRequest("id is required.");
+
+            var persons = _cache.Get<List<MemoryPersons>>(CacheKey);
+            if (persons == null)
+                return NotFound("No Persons Stored.");
+
+            var person = persons.FirstOrDefault(x => x.Id == id);
+            if (person == null)
+                return NotFound("Person not found.");
+
+            persons.Remove(person);
+            _cache.Set(CacheKey, persons);
+
+            return Ok("Deleted");
+        }
     }
 }

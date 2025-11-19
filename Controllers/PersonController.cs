@@ -17,10 +17,56 @@ namespace WebAPIService.Controllers
         }
 
         // GET: api/person
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPersons()
+        [HttpGet("GetAllPersons")]
+        public async Task<ActionResult<IEnumerable<Person>>> GetAllPersons()
         {
             return await _context.Persons.ToListAsync();
+        }
+
+        [HttpPost("UpdatePerson")]
+        public async Task<ActionResult<IEnumerable<Person>>> UpdatePerson([FromBody] Person model)
+        {
+            if (model == null)
+                return BadRequest("Invalid data.");
+
+            // Try to find existing
+            var existingPerson = await _context.Persons
+                .FirstOrDefaultAsync(x => x.PersonID == model.PersonID);
+
+            if (existingPerson == null)
+            {
+                // 👇 Create new
+                model.PersonID = 0;
+                _context.Persons.Add(model);
+                await _context.SaveChangesAsync();
+                return Ok(model);  // return the created object
+            }
+
+            // 👇 Update existing
+            existingPerson.LastName = model.LastName;
+            existingPerson.FirstName = model.FirstName;
+            existingPerson.Weight = model.Weight;
+            existingPerson.Height = model.Height;
+            existingPerson.Age = model.Age;
+            existingPerson.Email = model.Email;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(existingPerson);
+        }
+
+        [HttpDelete("DeletePerson")]
+        public async Task<ActionResult<IEnumerable<Person>>> DeletePerson(int PersonID)
+        {
+            var person = await _context.Persons.FindAsync(PersonID);
+
+            if (person == null)
+                return NotFound("Person not found.");
+
+            _context.Persons.Remove(person);
+            await _context.SaveChangesAsync();
+
+            return Ok("Deleted");
         }
 
         [HttpGet("db-test")]
