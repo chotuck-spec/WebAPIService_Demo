@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "20346d9c-1a2f-4791-86a7-ea6ea5723f93",
+		"name": "Demo API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://localhost:7274/api/MemoryPersons/UpdateMemoryPerson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"name\": \"James\",\r\n  \"age\": 30,\r\n  \"height\": 180,\r\n  \"width\": 98,\r\n  \"email\": \"chotuck@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7274/api/MemoryPersons/UpdateMemoryPerson",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"MemoryPersons",
+						"UpdateMemoryPerson"
+					]
+				},
+				"description": "1."
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/MemoryPersons/GetMemoryPerson?id=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7274/api/MemoryPersons/GetMemoryPerson?id=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"MemoryPersons",
+						"GetMemoryPerson"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				},
+				"description": "2"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/MemoryPersons/GetMemoryPerson/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7274/api/MemoryPersons/GetMemoryPerson/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"MemoryPersons",
+						"GetMemoryPerson",
+						"1"
+					]
+				},
+				"description": "3"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/MemoryPersons/DeleteMemoryPerson?ID=1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7274/api/MemoryPersons/DeleteMemoryPerson?ID=1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"MemoryPersons",
+						"DeleteMemoryPerson"
+					],
+					"query": [
+						{
+							"key": "ID",
+							"value": "1"
+						}
+					]
+				},
+				"description": "4"
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/Person/GetAllPersons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7274/api/Person/GetAllPersons",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"Person",
+						"GetAllPersons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/Person/UpdatePerson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"PersonID\": 13,\r\n  \"LastName\": \"James\",\r\n  \"FirstName\": \"Lee\",\r\n  \"Weight\": 98,\r\n  \"height\": 185,\r\n  \"Age\": 34,\r\n  \"email\": \"chotuck@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7274/api/Person/UpdatePerson",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"Person",
+						"UpdatePerson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://localhost:7274/api/Person/DeletePerson?PersonID=11",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7274/api/Person/DeletePerson?PersonID=11",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7274",
+					"path": [
+						"api",
+						"Person",
+						"DeletePerson"
+					],
+					"query": [
+						{
+							"key": "PersonID",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
