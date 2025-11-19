@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using WebAPIService.Models;
+using WebAPIService.Helpers;
 
 namespace WebAPIService.Controllers
 {
@@ -40,11 +41,30 @@ namespace WebAPIService.Controllers
 
             return Ok(person);
         }
+
+        [HttpGet("LoginMemoryPerson")]
+        public async Task<ActionResult<MemoryPersons>> Login(string id, string password)
+        {
+            await Task.Yield();
+            if (id == null)
+                return BadRequest("id is required.");
+            if (password == null)
+                return BadRequest("password is required.");
+            var persons = _cache.Get<List<MemoryPersons>>(CacheKey);
+            if(persons == null)
+                return NotFound("User not registered");
+            var hashpassword = HashCalculation.computeSha1Hash(password);
+            var person = persons.FirstOrDefault(x => x.loginID == id && x.password == hashpassword);
+
+            if (person == null)
+                return NotFound($"Login Incorrect ID/Password");
+
+            return Ok(person);
+        }
         [HttpPost("UpdateMemoryPerson")]
         public async Task<ActionResult<MemoryPersons>> UpdateMemoryPerson([FromBody] MemoryPersons person)
         {
             await Task.Yield();
-
             // Try to get the list from cache
             var persons = _cache.Get<List<MemoryPersons>>(CacheKey);
 
@@ -58,10 +78,12 @@ namespace WebAPIService.Controllers
             {
                 // Replace the existing person
                 var index = persons.IndexOf(existing);
+                person.password = HashCalculation.computeSha1Hash(person.password);
                 persons[index] = person;
             }else
             {
                 // Add to list
+                person.password = HashCalculation.computeSha1Hash(person.password);
                 persons.Add(person);
             }
             // Save back into memory

@@ -16,14 +16,36 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
 
+// Configure CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevCorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+
+    options.AddPolicy("ProdCorsPolicy", policy =>
+    {
+        // Restrict to trusted production origins
+        policy.WithOrigins("https://myfrontend.com")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+if (app.Environment.IsDevelopment())
+{
+    //app.UseSwagger();
+    //app.UseSwaggerUI();
+    app.UseCors("DevCorsPolicy");
+}
+// Enable CORS for production with restricted origins
+app.UseCors("ProdCorsPolicy");
 
 app.UseHttpsRedirection();
 
