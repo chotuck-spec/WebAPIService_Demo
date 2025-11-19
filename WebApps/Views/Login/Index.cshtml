@@ -1,0 +1,44 @@
+﻿@{
+    ViewData["Title"] = "Demo Web Apps";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form id="loginForm">
+    <div>
+        <label for="userId">ID:</label>
+        <input type="text" id="userId" name="userId" required />
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+<div id="message" style="color:red; margin-top:10px;"></div>
+
+@section Scripts {
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e){
+        e.preventDefault();
+
+        const userId = document.getElementById('userId').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const apiUrl = `https://localhost:7274/api/MemoryPersons/LoginMemoryPerson?id=${encodeURIComponent(userId)}&password=${encodeURIComponent(password)}`;
+            const response = await fetch(apiUrl);
+            if(response.ok){
+                    alert('Login successful! Welcome.');
+                window.location.href = '/Home/Index';
+            } else {
+                document.getElementById('message').innerText = 'Invalid credentials';
+            }
+        } catch(error) {
+            console.error(error);
+            document.getElementById('message').innerText = 'Network error';
+        }
+    });
+    </script>
+}

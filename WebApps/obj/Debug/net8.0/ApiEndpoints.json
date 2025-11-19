@@ -1,0 +1,23 @@
+[
+  {
+    "ContainingType": "WebApps.Controllers.API.LoginApiController",
+    "Method": "GetLogin",
+    "RelativePath": "api/LoginApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "password",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
