@@ -1,0 +1,4 @@
+-WebAPIService and WebApps executed in debug mode.
+-open postman and import the file from WebAPIService/SamplePostManAPI
+-use localhost:7274/api/MemoryPersons/UpdateMemoryPerson to insert a new login ID
+-use the WebApps login with ID:James, password:123456
